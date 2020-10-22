@@ -2,7 +2,7 @@
 /shelf/
 /workspace.xml
 # Datasource local storage ignored files
-/../../../../:\D\sweater\.idea/dataSources/
+src/main/resources/application.properties
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/
