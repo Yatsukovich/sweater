@@ -1,8 +1,5 @@
-# Default ignored files
-/shelf/
-/workspace.xml
-# Datasource local storage ignored files
-sweater/src/main/resources/application.properties
-/dataSources.local.xml
-# Editor-based HTTP Client requests
-/httpRequests/
+
+*.class
+*.jar
+target
+.idea
