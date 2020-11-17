@@ -13,14 +13,26 @@
     <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
         Add new message
     </a>
-<div class="collapse" id="collapseExample">
+<div class="collapse <#if message??>show</#if>" id="collapseExample">
     <div class="form-group mt-3">
     <form method="post" action="main" enctype="multipart/form-data">
         <div class="form-group">
-        <input type="text" name="text" class="form-control" placeholder="Введите текст сообщения">
-          </div>
+        <input type="text" name="text" class="form-control ${(textError??)?string('is-invalid','')}"
+               value="<#if message??>${message.text}</#if>" placeholder="Введите текст сообщения">
+            <#if textError??>
+            <div class="invalid-feedback">
+              ${textError}
+            </div>
+            </#if>
+        </div>
         <div class="form-group">
-            <input type="text" name="tag" class="form-control" placeholder="Тэг">
+            <input type="text" name="tag" class="form-control"
+                   value="<#if message??>${message.tag}</#if>"placeholder="Тэг">
+            <#if tagError??>
+                <div class="invalid-feedback">
+                    ${tagError}
+                </div>
+            </#if>
         </div>
         <div class="form-group">
             <div class="custom-file">
@@ -42,7 +54,7 @@
     <#if message.filename??>
         <img src="/img/${message.filename}" class="card-img-top">
     </#if>
-    <div class="m-2"
+    <div class="m-2">
     <span>${message.text}</span>
     <i>${message.tag}</i>
     </div>
