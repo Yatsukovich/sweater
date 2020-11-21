@@ -70,7 +70,7 @@ public class UserService implements UserDetailsService {
         user.setActivationCode(null);
         user.setActive(true);
         userRepo.save(user);
-
+        
         return true;
     }
 
@@ -98,21 +98,22 @@ public class UserService implements UserDetailsService {
 
     public void updateProfile(User user, String password, String mail) {
         String userEmail= user.getEmail();
-        boolean isEmailChanged = (mail !=null && !mail.equals(userEmail)
-                ||(userEmail!=null && !userEmail.equals(mail)));
+        boolean isEmailChanged = (mail !=null && !mail.equals(userEmail)||
+                (userEmail!=null && !userEmail.equals(mail)));
         if (isEmailChanged){
             user.setEmail(mail);
 
             if (!StringUtils.isEmpty(mail)){
                 user.setActivationCode(UUID.randomUUID().toString());
             }
-            if (!StringUtils.isEmpty(password)){
-                user.setPassword(passwordEncoder.encode(password));
-            }
+
+        }
+        if (!StringUtils.isEmpty(password)){
+            user.setPassword(passwordEncoder.encode(password));
         }
         userRepo.save(user);
-        if (isEmailChanged)
-        sendMessage(user);{
+        if (isEmailChanged){ user.setActive(false);
+        sendMessage(user);
         }
     }
 }
