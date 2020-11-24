@@ -66,17 +66,8 @@ public class MainController {
          }
          else {
 
-        if (file!=null && !file.getOriginalFilename().isEmpty()){
-            File uploadDir = new File(uploadPath);
-            if(!uploadDir.exists()){
-                uploadDir.mkdir();
-            }
-            String uuidFile =UUID.randomUUID().toString();
-            String resultFileName = uuidFile+"."+file.getOriginalFilename();
-            file.transferTo(new File(uploadPath+"/"+resultFileName));
-            message.setFilename(resultFileName);
-        }
-            
+             saveFile(message, file);
+
              model.addAttribute("message", null);
         messageRepo.save(message);
          }
@@ -84,6 +75,19 @@ public class MainController {
         model.addAttribute("messages", messages);
 
         return "main";
+    }
+
+    private void saveFile(Message message, MultipartFile file) throws IOException {
+        if (file !=null && !file.getOriginalFilename().isEmpty()){
+            File uploadDir = new File(uploadPath);
+            if(!uploadDir.exists()){
+                uploadDir.mkdir();
+            }
+            String uuidFile =UUID.randomUUID().toString();
+            String resultFileName = uuidFile+"."+ file.getOriginalFilename();
+            file.transferTo(new File(uploadPath+"/"+resultFileName));
+            message.setFilename(resultFileName);
+        }
     }
 
 
