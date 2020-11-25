@@ -26,7 +26,7 @@ public class MessageController {
     private MessageRepo messageRepo;
     @Value("${upload.path}")
     private String uploadPath;
-    @GetMapping("user-messages/{user}")
+    @GetMapping("/user-messages/{user}")
     public String userMessages(
             @AuthenticationPrincipal User currentUser,
                                @PathVariable User user,
@@ -40,7 +40,7 @@ public class MessageController {
         return "userMessages";
     }
 
-    @PostMapping("user-messages/{user}")
+    @PostMapping("/user-messages/{user}")
     public String editMessage(
             @AuthenticationPrincipal User currentUser,
                               @PathVariable Long user,
@@ -61,7 +61,7 @@ public class MessageController {
 
         }
 
-        return "redirect:/user-messages/{user}"+user;
+        return "redirect:/user-messages/"+user;
     }
     private void saveFile(Message message, MultipartFile file) throws IOException {
         if (file !=null && !file.getOriginalFilename().isEmpty()){
